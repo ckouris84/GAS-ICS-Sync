@@ -878,7 +878,7 @@ function sendSummary() {
     body += "</ul>";
   }
   
-  body += "<br/><br/>Do you have any problems or suggestions? Contact us at <a href='https://github.com/derekantrican/GAS-ICS-Sync/'>github</a>.";
+  body += "<br/><br/>Do you have any problems or suggestions? Contact us at <a href='https://github.com/ckouris84/GAS-ICS-Sync/'>github</a>.";
   var message = {
     to: email,
     subject: subject,
@@ -933,7 +933,7 @@ function callWithBackoff(func, maxRetries) {
 }
 
 /**
- * Checks for a new version of the script at https://github.com/derekantrican/GAS-ICS-Sync/releases.
+ * Checks for a new version of the script at https://github.com/ckouris84/GAS-ICS-Sync/releases.
  * Will notify the user once if a new version was released.
  */
 function checkForUpdate(){
@@ -949,7 +949,7 @@ function checkForUpdate(){
     if (latestVersion > thisVersion && latestVersion != lastAlertedVersion){
       MailApp.sendEmail(email,
         `Version ${latestVersion} of GAS-ICS-Sync is available! (You have ${thisVersion})`,
-        "You can see the latest release here: https://github.com/derekantrican/GAS-ICS-Sync/releases");
+        "You can see the latest release here: https://github.com/ckouris84/GAS-ICS-Sync/releases");
 
       PropertiesService.getScriptProperties().setProperty("alertedForNewVersion", latestVersion);
     }
@@ -957,7 +957,8 @@ function checkForUpdate(){
   catch (e){}
 
   function getLatestVersion(){
-    var json_encoded = UrlFetchApp.fetch("https://api.github.com/repos/derekantrican/GAS-ICS-Sync/releases?per_page=1");
+    //var json_encoded = UrlFetchApp.fetch("https://api.github.com/repos/derekantrican/GAS-ICS-Sync/releases?per_page=1");
+    var json_encoded = UrlFetchApp.fetch("https://api.github.com/repos/ckouris84/GAS-ICS-Sync/releases?per_page=1");
     var json_decoded = JSON.parse(json_encoded);
     var version = json_decoded[0]["tag_name"];
     return Number(version);

@@ -753,6 +753,11 @@ ICAL.design = (function() {
         // from: 2012-09-01T13:00:00
         // to: 20120901T130000
         var len = aValue.length;
+        
+        // CKDev 2022-04-25 - Fix for bad dates
+        if( len == 8 ) {
+          aValue = aValue + 'T000000';
+        }
 
         if (len == 10 && !design.strict) {
           return icalValues.date.toICAL(aValue);
