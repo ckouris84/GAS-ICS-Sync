@@ -753,10 +753,11 @@ ICAL.design = (function() {
         // from: 2012-09-01T13:00:00
         // to: 20120901T130000
         var len = aValue.length;
-        
+
         // CKDev 2022-04-25 - Fix for bad dates
-        if( len == 8 ) {
-          aValue = aValue + 'T000000';
+        if( aValue.endsWith("T::") ) {          
+          console.log("aValue: ",aValue);
+          aValue = aValue.replace("T::", "T000000Z");
         }
 
         if (len == 10 && !design.strict) {
@@ -777,12 +778,23 @@ ICAL.design = (function() {
           return result;
         } else {
           // TODO: error
+          
+          // CKDev 2022-04-25 - Fix for bad dates
+            if( aValue.endsWith("T::") ) {          
+              console.log("aValue: ",aValue);
+              return aValue.replace("T::", "T000000Z");
+            }
           return aValue;
         }
       },
 
       decorate: function(aValue, aProp) {
         if (design.strict) {
+          // CKDev 2022-04-25 - Fix for bad dates
+            if( aValue.endsWith("T::") ) {          
+              console.log("aValue: ",aValue);
+              aValue = aValue.replace("T::", "T000000Z");
+            }
           return ICAL.Time.fromDateTimeString(aValue, aProp);
         } else {
           return ICAL.Time.fromString(aValue, aProp);
@@ -795,6 +807,11 @@ ICAL.design = (function() {
     },
     duration: {
       decorate: function(aValue) {
+        // CKDev 2022-04-25 - Fix for bad dates
+        if( aValue.endsWith("T::") ) {          
+          console.log("aValue: ",aValue);
+          aValue = aValue.replace("T::", "T000000Z");
+        }
         return ICAL.Duration.fromString(aValue);
       },
       undecorate: function(aValue) {
